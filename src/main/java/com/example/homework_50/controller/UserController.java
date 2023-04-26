@@ -43,7 +43,7 @@ public class UserController {
         if (!passwordEncoder.matches(password, userFromDb.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        
+
         return ResponseEntity.ok("Authentication successful");
     }
 }

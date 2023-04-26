@@ -29,5 +29,38 @@
         </form>
     </div>
 </body>
-<script src="script.js"></script>
+<script>
+    const user = JSON.parse(localStorage.getItem('user'));
+
+
+if (user) {
+    document.getElementById('splash-screen').style.display = 'none';
+}
+
+document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('http://localhost:2727/user/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('user', JSON.stringify(data));
+            document.getElementById('splash-screen').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Ошибка авторизации:', error);
+        });
+});
+</script>
 </html>
