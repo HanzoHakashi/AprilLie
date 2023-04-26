@@ -9,4 +9,8 @@ public class HomePageController {
     public String showRegistrationPage() {
         return "registration";
     }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 }

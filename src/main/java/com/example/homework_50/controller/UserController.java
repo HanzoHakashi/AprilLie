@@ -28,11 +28,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<UserDto> login(@RequestBody User user) {
         String email = user.getEmail();
         String password = user.getPassword();
         if (email == null || password == null) {
-            return ResponseEntity.badRequest().body("Email and password must be provided");
+            return ResponseEntity.badRequest().body(null);
         }
         UserDto userFromDb = userService.findByEmail(email);
 
@@ -44,6 +44,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return ResponseEntity.ok("Authentication successful");
+        return ResponseEntity.ok(userFromDb);
     }
 }
+
